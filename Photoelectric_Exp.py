@@ -2,8 +2,6 @@ import piplates.DAQC2plate as DAQC2
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import time
-from sklearn.linear_model import LinearRegression
 
 # create_energy_df:
 #   wavelengths - TODO
@@ -96,8 +94,8 @@ def plot_LED_data(led_df, wavelength_nm):
   print('V_s = {:.4f} V'.format(V_s))
   return V_s
 
-### MAIN
-voltages = np.arange(0, 1, 0.001)
+### MAIN ###
+voltages = np.arange(0, 0.7, 0.001)
 np.random.shuffle(voltages)
 led_data = np.zeros((voltages.size,3))
 dark_current = 1.3e-03
@@ -106,12 +104,13 @@ for i in range(voltages.size):
     Vr = voltages[i]
     led_data[i,0] = Vr
     DAQC2.setDAC(0,0,Vr)
-#   time.sleep(1)
     Vp = DAQC2.getADC(0,0) - DAQC2.getADC(0,1)
     led_data[i,1] = Vp
     led_data[i,2] = dark_current
 
-wavelength = 654
+wavelength = 654.9
 led_df = create_LED_df(led_data)
+filename = "data/laser_{λ}nm.csv".format(λ=wavelength)
+led_df.to_csv(filename, encoding='utf-8', index=False)
 plot_LED_data(led_df, np.array(wavelength))
 

@@ -101,12 +101,21 @@ Vs_led3 = np.array([[404,1.3850],
                     [509.3,0.7360],
                     [591.1,0.3990],
                     [624.1,0.3400]])
-Vs_data = np.array([[404,1.3850],
-                    [458.5,1.0050],
-                    [509.3,0.7360],
-                    [591.1,0.3990],
-                    [624.1,0.3400]])
+Vs_led4 = np.array([[404,1.3410],
+                    [458.5,1.0260],
+                    [509.3,0.7880],
+                    [591.1,0.3740],
+                    [624.1,0.3230]])
+Vs_laser2 = np.array([[405.8,1.4810],
+                    [530.3,0.7910],
+                    [654.9,0.3380]])
+Vs_data = np.array([[404,1.3340],
+                    [458.5,1.1890],
+                    [509.3,0.8510],
+                    [591.1,0.6770],
+                    [624.1,0.2380]])
 energy_df = create_energy_df(Vs_data)
+energy_df.to_csv("data/led_energy.csv", encoding='utf-8', index=False)
 h_exp = plot_energy_data(energy_df)
 print('\n')
 error = get_h_error(h_exp)
